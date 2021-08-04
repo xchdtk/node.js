@@ -10,7 +10,7 @@ const swaggerUi = require("swagger-ui-express");
 const swaggerOptions = {
   swaggerDefinition: {
     info: {
-      title: "Customer API",
+      title: "Schools API",
       description: "Customer API Information",
       contact: {
         name: "justin",
@@ -19,7 +19,7 @@ const swaggerOptions = {
     },
   },
   // ['./routes/*.js]
-  apis: ["api.js"],
+  apis: ["app.js"],
 };
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
@@ -29,14 +29,61 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 /**
  * @swagger
  * /customers:
- *  get:
- *     description: use to request all customers
+ *   get:
+ *     tags:
+ *       - Schools
+ *     name: Get School
+ *     summary: Get School
+ *     parameters:
+ *       - in: query
+ *         name: schoolName
+ *         schema:
+ *           type: object
+ *           properties:
+ *             name:
+ *               type: string
  *     responses:
  *       '200':
- *         description: a successful respons
+ *         description: Get one School
+ *       '404':
+ *         fail
  */
 app.get("/customers", (req, res) => {
   res.send("customer relults");
+});
+
+/**
+ * @swagger
+ * /customers:
+ *   post:
+ *     tags:
+ *       - Customers
+ *     name: Register Customers
+ *     summary: Register Customers
+ *     parameters:
+ *       - name: body
+ *         in: body
+ *         schema: object
+ *         properties:
+ *           name:
+ *             type: string
+ *           type:
+ *             type: string
+ *           address:
+ *             type: string
+ *         example:
+ *           name: customerOne
+ *           type: High
+ *           address: gangnam
+ *     responses:
+ *       '200':
+ *         description: register one school
+ *       '404':
+ *         fail
+ *
+ */
+app.post("/customers", (req, res) => {
+  res.send("손님이 추가되었습니다.");
 });
 app.listen(port, () => {
   console.log(`server is running ${port}`);
