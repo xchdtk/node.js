@@ -33,7 +33,6 @@ passport.serializeUser((user, done) => {
 
 // req.user 저장
 passport.deserializeUser((userId, done) => {
-    console.log("dserfdaf")
     User.findById(userId, function(err, user) {
         console.log(user)
         done(null, user)
